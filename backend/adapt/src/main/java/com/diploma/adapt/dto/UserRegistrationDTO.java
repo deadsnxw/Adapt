@@ -8,8 +8,7 @@ import com.diploma.adapt.model.ActivityLevel;
 import com.diploma.adapt.model.Goal;
 
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
