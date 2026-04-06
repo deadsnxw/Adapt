@@ -21,4 +21,5 @@ public class UserProfileDTO {
     private Gender gender;
     private ActivityLevel activityLevel;
     private Goal goal;
+    private Integer targetCalories;
 }

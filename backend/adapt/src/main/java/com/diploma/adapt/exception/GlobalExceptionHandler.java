@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.io.DecodingException;
 
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -49,6 +50,12 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(DecodingException.class)
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	public ApiError handleDecoding(DecodingException ex) {
-		return new ApiError(403, "Wrong token");
+		return new ApiError(403, "Wrong or expired token");
+	}
+
+	@ExceptionHandler(ExpiredJwtException.class)
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	public ApiError handleExpired(ExpiredJwtException ex) {
+		return new ApiError(403, "Wrong or expired token");
 	}
 }

@@ -14,16 +14,24 @@ import com.diploma.adapt.repository.UserRepository;
 public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final CalculatorService calculatorService;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
+    public UserService(UserRepository userRepository, UserMapper userMapper, CalculatorService calculatorService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.calculatorService = calculatorService;
     }
 
     public UserProfileDTO getUserProfile(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new NoSuchElementException("User not found"));
 
-        return userMapper.toProfileDTO(user);
+        UserProfileDTO dto = userMapper.toProfileDTO(user);
+
+        Integer calculatedCalories = calculatorService.calculateTargetCalories(user);
+
+        dto.setTargetCalories(calculatedCalories);
+
+        return dto;
     }
 
     public UserProfileDTO updateUserProfile(String username, UserUpdateDTO dto) {
@@ -38,7 +46,13 @@ public class UserService {
 
         User saved = userRepository.save(user);
 
-        return userMapper.toProfileDTO(saved);
+        UserProfileDTO responseDto = userMapper.toProfileDTO(saved);
+
+        Integer calculatedCalories = calculatorService.calculateTargetCalories(saved);
+
+        responseDto.setTargetCalories(calculatedCalories);
+
+        return responseDto;
     }
 
     public void deleteUserProfile(String username) {
