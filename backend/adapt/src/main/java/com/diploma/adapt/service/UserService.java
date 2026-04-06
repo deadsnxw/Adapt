@@ -40,4 +40,10 @@ public class UserService {
 
         return userMapper.toProfileDTO(saved);
     }
+
+    public void deleteUserProfile(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new NoSuchElementException("User not found"));
+
+        userRepository.delete(user);
+    }
 }
