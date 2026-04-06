@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
+import com.diploma.adapt.dto.NutritionDTO;
 import com.diploma.adapt.dto.UserProfileDTO;
 import com.diploma.adapt.dto.UserUpdateDTO;
 import com.diploma.adapt.mapper.UserMapper;
@@ -27,9 +28,12 @@ public class UserService {
 
         UserProfileDTO dto = userMapper.toProfileDTO(user);
 
-        Integer calculatedCalories = calculatorService.calculateTargetCalories(user);
+        NutritionDTO nutrients = calculatorService.calculateNutrition(user);
 
-        dto.setTargetCalories(calculatedCalories);
+        dto.setTargetCalories(nutrients.calories());
+        dto.setTargetProtein(nutrients.protein());
+        dto.setTargetFat(nutrients.fat());
+        dto.setTargetCarbs(nutrients.carbs());
 
         return dto;
     }
@@ -48,9 +52,12 @@ public class UserService {
 
         UserProfileDTO responseDto = userMapper.toProfileDTO(saved);
 
-        Integer calculatedCalories = calculatorService.calculateTargetCalories(saved);
+        NutritionDTO nutrients = calculatorService.calculateNutrition(saved);
 
-        responseDto.setTargetCalories(calculatedCalories);
+        responseDto.setTargetCalories(nutrients.calories());
+        responseDto.setTargetProtein(nutrients.protein());
+        responseDto.setTargetFat(nutrients.fat());
+        responseDto.setTargetCarbs(nutrients.carbs());
 
         return responseDto;
     }

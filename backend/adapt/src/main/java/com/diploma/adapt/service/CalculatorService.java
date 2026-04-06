@@ -1,6 +1,8 @@
 package com.diploma.adapt.service;
 
 import org.springframework.stereotype.Service;
+
+import com.diploma.adapt.dto.NutritionDTO;
 import com.diploma.adapt.model.ActivityLevel;
 import com.diploma.adapt.model.Gender;
 import com.diploma.adapt.model.Goal;
@@ -8,10 +10,37 @@ import com.diploma.adapt.model.User;
 
 @Service
 public class CalculatorService {
-    public Integer calculateTargetCalories(User user) {
+    public NutritionDTO calculateNutrition(User user) {
         double bmr = calculateBMR(user.getWeight(), user.getHeight(), user.getAge(), user.getGender());
         double tdee = calculateTDEE(bmr, user.getActivityLevel());
-        return calculateFinalCalories(tdee, user.getGoal());
+        Integer calories = calculateFinalCalories(tdee, user.getGoal());
+
+        double proteinMultiplier = switch (user.getGoal()) {
+            case LOSS   -> 2.2;
+            case GAIN   -> 1.9;
+            case MAINTAIN -> 1.7;
+        };
+
+        double fatMultiplier = switch (user.getGoal()) {
+            case LOSS   -> 0.9;
+            case GAIN   -> 1.1;
+            case MAINTAIN -> 1.0; 
+        };
+
+        int targetProtein = (int) Math.round(user.getWeight() * proteinMultiplier);
+        int proteinCalories = targetProtein * 4;
+
+        int targetFat = (int) Math.round(user.getWeight() * fatMultiplier);
+        int fatCalories = targetFat * 9;
+
+        int carbsCalories = calories - (fatCalories + proteinCalories);
+        int targetCarbs =  Math.max(100, (int) Math.round(carbsCalories / 4));
+
+        int targetCalories = (targetCarbs == 100)
+            ? proteinCalories + fatCalories + 400
+            : calories;
+
+        return new NutritionDTO(targetCalories, targetProtein, targetFat, targetCarbs);
     }
 
     public double calculateBMR(double weight, int height, int age, Gender gender) {
@@ -30,25 +59,20 @@ public class CalculatorService {
         double tdee = 0.0;
 
         switch (activityLevel) {
-            case SEDENTARY:
+            case SEDENTARY ->
                 tdee = bmr * 1.2;
-                break;
             
-            case LIGHT:
+            case LIGHT ->
                 tdee = bmr * 1.375;
-                break;
 
-            case MODERATE:
+            case MODERATE ->
                 tdee = bmr * 1.55;
-                break;
 
-            case ACTIVE:
+            case ACTIVE ->
                 tdee = bmr * 1.725;
-                break;
 
-            case VERY_ACTIVE:
+            case VERY_ACTIVE ->
                 tdee = bmr * 1.9;
-                break;
         }
 
         return tdee;
@@ -58,17 +82,14 @@ public class CalculatorService {
         double calories = tdee;
         
         switch (goal) {
-            case LOSS:
+            case LOSS ->
                 calories = tdee - (0.20 * tdee);
-                break;
 
-            case MAINTAIN:
+            case MAINTAIN ->
                 calories = tdee;
-                break;
 
-            case GAIN:
+            case GAIN ->
                 calories = tdee + (0.15 * tdee);
-                break;
         }
 
         return (int) Math.round(calories);

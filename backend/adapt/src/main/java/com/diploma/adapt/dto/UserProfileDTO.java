@@ -22,4 +22,7 @@ public class UserProfileDTO {
     private ActivityLevel activityLevel;
     private Goal goal;
     private Integer targetCalories;
+    private Integer targetProtein;
+    private Integer targetFat;
+    private Integer targetCarbs;
 }
