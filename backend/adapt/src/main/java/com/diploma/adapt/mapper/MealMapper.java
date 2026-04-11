@@ -30,6 +30,7 @@ public interface MealMapper {
         Double amount = item.getAmount();
 
         return new MealEntryItemDTO(
+            item.getId(),
             product.getProductName(),
             amount,
             (product.getCalories() / 100.0) * amount,

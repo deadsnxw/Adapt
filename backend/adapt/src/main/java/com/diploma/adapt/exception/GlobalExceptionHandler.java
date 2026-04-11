@@ -9,6 +9,7 @@ import java.nio.file.AccessDeniedException;
 import java.util.NoSuchElementException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.io.DecodingException;
@@ -64,5 +65,11 @@ public class GlobalExceptionHandler {
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	public ApiError handleAccessDenied(AccessDeniedException ex) {
 		return new ApiError(403, "Access denied");
+	}
+
+	@ExceptionHandler(WebClientResponseException.class)
+	@ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+	public ApiError handleServiceUnavailable(WebClientResponseException ex) {
+		return new ApiError(503, "Service Unavailable");
 	}
 }

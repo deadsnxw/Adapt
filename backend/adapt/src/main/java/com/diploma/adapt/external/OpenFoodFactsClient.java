@@ -2,6 +2,7 @@ package com.diploma.adapt.external;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.http.HttpHeaders;
 
 import com.diploma.adapt.dto.ApiResponseDTO;
 
@@ -18,6 +19,7 @@ public class OpenFoodFactsClient {
 
         this.webClient = webClientBuilder
                 .baseUrl(baseUrl)
+                .defaultHeader(HttpHeaders.USER_AGENT, "AdaptApp - Java SpringBoot Backend - Version 1.0")
                 .build();
     }
 

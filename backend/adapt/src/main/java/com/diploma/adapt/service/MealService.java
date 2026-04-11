@@ -96,6 +96,10 @@ public class MealService {
 
         mealEntryItemRepository.delete(item);
 
+        if (mealEntryItemRepository.findByMeal(mealBox).isEmpty()) {
+            mealEntryRepository.delete(mealBox);
+        }
+
         return buildMealEntryDTO(mealBox);
     }
 

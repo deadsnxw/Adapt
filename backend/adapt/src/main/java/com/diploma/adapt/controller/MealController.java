@@ -33,7 +33,7 @@ public class MealController {
         this.mealService = mealService;
     }
 
-    @PostMapping
+    @PostMapping("/items")
     @ResponseStatus(HttpStatus.CREATED)
     public MealEntryDTO addFoodToDiary(@RequestBody @Valid MealEntryItemCreateDTO dto, Principal principal) {
         return mealService.addFoodToDiary(dto, principal.getName());
