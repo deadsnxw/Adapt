@@ -44,8 +44,8 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         id="genderMale"
                         name="gender"
                         type="radio"
-                        value="male"
-                        checked={formData.gender === "male"}
+                        value="MALE"
+                        checked={formData.gender === "MALE"}
                         onChange={onInputChange}
                         required
                     />
@@ -56,8 +56,8 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         id="genderFemale"
                         name="gender"
                         type="radio"
-                        value="female"
-                        checked={formData.gender === "female"}
+                        value="FEMALE"
+                        checked={formData.gender === "FEMALE"}
                         onChange={onInputChange}
                         required
                     />
@@ -70,8 +70,8 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         id="activitySedentary"
                         name="activityLevel"
                         type="radio"
-                        value="sedentary"
-                        checked={formData.activityLevel === "sedentary"}
+                        value="SEDENTARY"
+                        checked={formData.activityLevel === "SEDENTARY"}
                         onChange={onInputChange}
                         required
                     />
@@ -82,8 +82,8 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         id="activityLight"
                         name="activityLevel"
                         type="radio"
-                        value="light"
-                        checked={formData.activityLevel === "light"}
+                        value="LIGHT"
+                        checked={formData.activityLevel === "LIGHT"}
                         onChange={onInputChange}
                         required
                     />
@@ -94,8 +94,8 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         id="activityModerate"
                         name="activityLevel"
                         type="radio"
-                        value="moderate"
-                        checked={formData.activityLevel === "moderate"}
+                        value="MODERATE"
+                        checked={formData.activityLevel === "MODERATE"}
                         onChange={onInputChange}
                         required
                     />
@@ -106,8 +106,8 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         id="activityActive"
                         name="activityLevel"
                         type="radio"
-                        value="active"
-                        checked={formData.activityLevel === "active"}
+                        value="ACTIVE"
+                        checked={formData.activityLevel === "ACTIVE"}
                         onChange={onInputChange}
                         required
                     />
@@ -118,8 +118,8 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         id="activityVeryActive"
                         name="activityLevel"
                         type="radio"
-                        value="veryActive"
-                        checked={formData.activityLevel === "veryActive"}
+                        value="VERY_ACTIVE"
+                        checked={formData.activityLevel === "VERY_ACTIVE"}
                         onChange={onInputChange}
                         required
                     />
@@ -132,8 +132,8 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         id="goalLoss"
                         name="goal"
                         type="radio"
-                        value="loss"
-                        checked={formData.goal === "loss"}
+                        value="LOSS"
+                        checked={formData.goal === "LOSS"}
                         onChange={onInputChange}
                         required
                     />
@@ -144,8 +144,8 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         id="goalMaintain"
                         name="goal"
                         type="radio"
-                        value="maintain"
-                        checked={formData.goal === "maintain"}
+                        value="MAINTAIN"
+                        checked={formData.goal === "MAINTAIN"}
                         onChange={onInputChange}
                         required
                     />
@@ -156,8 +156,8 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         id="goalGain"
                         name="goal"
                         type="radio"
-                        value="gain"
-                        checked={formData.goal === "gain"}
+                        value="GAIN"
+                        checked={formData.goal === "GAIN"}
                         onChange={onInputChange}
                         required
                     />
