@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import StepOne from "../components/login/LoginForm.jsx";
+import { fetchApi, setToken } from "../utils/api.js";
 import LoginForm from "../components/login/LoginForm.jsx";
 
 export default function LoginPage() {
@@ -33,16 +33,17 @@ export default function LoginPage() {
             password: formData.password
         }
 
-        const response = await fetch("/api/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-        });
+        try {
+            const data = await fetchApi("/api/auth/login", {
+                method: "POST",
+                body: payload
+            });
 
-        if(response.ok) {
-            navigate("/")
-        } else {
-            setError("Error occured")
+            setToken(data.token);
+            
+            navigate('/');
+        } catch (error) {
+            setError("Couldn't login")
         }
     };
 

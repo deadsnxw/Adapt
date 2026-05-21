@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { fetchApi, setToken } from "../utils/api.js";
 import StepOne from "../components/register/StepOne.jsx";
 import StepTwo from "../components/register/StepTwo.jsx";
 
@@ -64,16 +65,17 @@ export default function RegisterPage() {
             goal: formData.goal
         }
 
-        const response = await fetch("/api/auth/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-        });
+        try {
+            const data = await fetchApi("/api/auth/register", {
+                method: "POST",
+                body: payload
+            });
 
-        if(response.ok) {
-            navigate("/")
-        } else {
-            setError("Error occured")
+            setToken(data.token);
+            
+            navigate('/');
+        } catch (error) {
+            setError("Couldn't register")
         }
     };
 
