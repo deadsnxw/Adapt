@@ -3,6 +3,7 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
+import ProductSearchPage from "./pages/ProductSearchPage";
 
 export default function App() {
     return (
@@ -12,6 +13,7 @@ export default function App() {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 {/* <Route path="/me" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} /> */}
+                <Route path="/products/search" element={<ProtectedRoute><ProductSearchPage /></ProtectedRoute>} />
             </Routes>
         </BrowserRouter>
     );
