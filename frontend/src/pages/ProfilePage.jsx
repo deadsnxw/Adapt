@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchApi } from "../utils/api";
+import { fetchApi, removeToken } from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
 export default function ProfilePage() {
@@ -17,6 +17,12 @@ export default function ProfilePage() {
         fetchProfile();
     }, []);
 
+    function handleLogout() {
+        removeToken()
+        
+        navigate('/login')
+    };
+
     return (
         <div className="profileContainer">
             <h2>{profile?.username}</h2>
@@ -31,6 +37,7 @@ export default function ProfilePage() {
             <span>Target Carbs: {profile?.targetCarbs}</span>
             <span>Target Fat: {profile?.targetFat}</span>
             <button onClick={() => navigate('/me/settings')}>Settings</button>
+            <button onClick={handleLogout}>Logout</button>
         </div>
     )
 }
