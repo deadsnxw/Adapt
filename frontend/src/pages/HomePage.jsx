@@ -5,20 +5,30 @@ import MealSection from "../components/home/MealSection";
 
 export default function HomePage() {
     const [meal, setMeal] = useState([]);
+    const [profile, setProfile] = useState(null);
 
     useEffect(() => {
         const fetchMeals = async () => {
             const data = await fetchApi(`/api/diary?date=${getDate()}`,
         )
 
-        getDate();
-
         setMeal(data)
         };
 
+        const fetchProfile = async () => {
+            const data = await fetchApi('/api/users/me')
+
+            setProfile(data);
+        };
+
         fetchMeals();
+        fetchProfile();
     }, []);
 
+    const totalCalories = meal.reduce((sum, entry) => sum + entry.calories, 0);
+    const totalProtein = meal.reduce((sum, entry) => sum + entry.protein, 0);
+    const totalCarbs = meal.reduce((sum, entry) => sum + entry.carbs, 0);
+    const totalFat = meal.reduce((sum, entry) => sum + entry.fat, 0);
 
     return (
         <div className="homeContainer">
@@ -43,6 +53,12 @@ export default function HomePage() {
                     mealType="SNACK"
                     productList={meal.filter(item => item.mealType === "SNACK")} 
                 />
+            </div>
+            <div className="progressBars">
+                <span>Calories: {totalCalories}/{profile?.targetCalories} |</span>
+                <span>Protein: {totalProtein}/{profile?.targetProtein} |</span>
+                <span>Carbs: {totalCarbs}/{profile?.targetCarbs} |</span>
+                <span>Fat: {totalFat}/{profile?.targetFat}</span>
             </div>
         </div>
     )
