@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react"; 
 import { fetchApi } from "../utils/api";
 import { getDate } from "../utils/dateUtils";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import MealSection from "../components/home/MealSection";
 
 export default function HomePage() {
     const [meal, setMeal] = useState([]);
     const [profile, setProfile] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(new Date())
 
     useEffect(() => {
         const fetchMeals = async () => {
-            const data = await fetchApi(`/api/diary?date=${getDate()}`,
+            const data = await fetchApi(`/api/diary?date=${getDate(selectedDate)}`,
         )
 
         setMeal(data)
@@ -23,7 +26,7 @@ export default function HomePage() {
 
         fetchMeals();
         fetchProfile();
-    }, []);
+    }, [selectedDate]);
 
     const totalCalories = meal.reduce((sum, entry) => sum + entry.calories, 0);
     const totalProtein = meal.reduce((sum, entry) => sum + entry.protein, 0);
@@ -32,6 +35,12 @@ export default function HomePage() {
 
     return (
         <div className="homeContainer">
+            <div className="calendar">
+                <DatePicker
+                    selected={selectedDate}
+                    onChange={(date) => setSelectedDate(date)}
+                />
+            </div>
             <div className="mealSection">
                 <MealSection
                     mealName="Breakfast"

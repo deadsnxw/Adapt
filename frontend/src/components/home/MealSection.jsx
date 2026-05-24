@@ -19,7 +19,7 @@ export default function MealSection({ mealName, productList, mealType }) {
                 <ul className="mealSectionList">
                     <div className="listGroup">
                         {productList.flatMap((entry) => entry.product.map((item) =>
-                            <li key={item.id}>
+                            <li key={item.id} onClick={() => navigate(`/products/${item.id}`, { state: { product: item, edit: true } })}>
                                 {item.productName} - 
                                 {item.amount}g - 
                                 {item.calories} kcal - 

@@ -4,15 +4,15 @@ import { getDate } from "../utils/dateUtils";
 import { fetchApi } from "../utils/api";
 
 export default function ProductDetailPage() {
-    const [amount, setAmount] = useState(100);
-    const [error, setError] = useState("");
-
     const navigate = useNavigate();
     const location = useLocation();
 
+    const isEdit = location.state?.edit;
     const mealType = location.state?.mealType;
-    console.log(mealType);
     const product = location.state?.product;
+
+    const [amount, setAmount] = useState(isEdit ? product.amount : 100);
+    const [error, setError] = useState("");
 
     const calories = (product.calories * amount / 100).toFixed(1);
     const protein = (product.protein * amount / 100).toFixed(1);
@@ -42,6 +42,41 @@ export default function ProductDetailPage() {
         navigate('/');
     }
 
+    const updateProduct = async (event) => {
+        event.preventDefault();
+        setError("");
+
+        const payload = {
+            amount: amount,
+        }
+
+        try {
+            await fetchApi(`/api/diary/items/${product.id}`, {
+                method: "PUT",
+                body: payload
+            })
+        } catch (error) {
+            setError("Couldn't update food")
+        }
+
+        navigate('/');
+    }
+
+    const deleteProduct = async (event) => {
+        event.preventDefault();
+        setError("");
+
+        try {
+            await fetchApi(`/api/diary/items/${product.id}`, {
+                method: "DELETE"
+            })
+        } catch (error) {
+            setError("Couldn't delete food")
+        }
+
+        navigate('/');
+    }
+
     return (
         <div className="detailContainer">
             <label htmlFor="productName">{product.productName}</label>
@@ -53,7 +88,15 @@ export default function ProductDetailPage() {
                     onChange={(e) => setAmount(e.target.value)}
                     required
                 />
-            <button className="add" onClick={addProduct}>Add</button>
+            
+            {isEdit ? (
+                <>
+                    <button className="update" onClick={updateProduct}>Update</button>
+                    <button className="delete" onClick={deleteProduct}>Delete</button>
+                </>
+            ) : ( 
+                <button className="add" onClick={addProduct}>Add</button>
+            )}
 
             <span htmlFor="CPCF">Calories: {calories}</span>
             <span htmlFor="CPCF">Protein: {protein}</span>
