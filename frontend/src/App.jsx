@@ -5,6 +5,8 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import ProductSearchPage from "./pages/ProductSearchPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import ProfilePage from "./pages/ProfilePage";
+import SettingsPage from "./pages/SettingsPage";
 
 export default function App() {
     return (
@@ -13,9 +15,10 @@ export default function App() {
                 <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/login" element={<LoginPage />} />
-                {/* <Route path="/me" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} /> */}
+                <Route path="/me" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
                 <Route path="/products/search" element={<ProtectedRoute><ProductSearchPage /></ProtectedRoute>} />
                 <Route path="/products/:id" element={<ProtectedRoute><ProductDetailPage /></ProtectedRoute>} />
+                <Route path="/me/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
             </Routes>
         </BrowserRouter>
     );
