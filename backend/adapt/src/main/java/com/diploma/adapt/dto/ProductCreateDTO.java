@@ -1,5 +1,7 @@
 package com.diploma.adapt.dto;
 
+import com.diploma.adapt.model.ProductSource;
+
 import jakarta.validation.constraints.*;
 
 public record ProductCreateDTO(
@@ -28,5 +30,7 @@ public record ProductCreateDTO(
     @Max(100)
     Double carbs,
 
-    String externalId
+    String externalId,
+
+    ProductSource source
 ) {}

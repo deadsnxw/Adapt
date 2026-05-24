@@ -13,6 +13,7 @@ import com.diploma.adapt.dto.MealEntryItemCreateDTO;
 import com.diploma.adapt.dto.MealEntryItemDTO;
 import com.diploma.adapt.dto.MealEntryItemUpdateDTO;
 import com.diploma.adapt.mapper.MealMapper;
+import com.diploma.adapt.mapper.ProductMapper;
 import com.diploma.adapt.model.MealEntry;
 import com.diploma.adapt.model.MealEntryItem;
 import com.diploma.adapt.model.Product;
@@ -29,24 +30,40 @@ public class MealService {
     private final MealEntryRepository mealEntryRepository;
     private final MealEntryItemRepository mealEntryItemRepository;
     private final MealMapper mealMapper;
+    private final ProductMapper productMapper;
     
     public MealService(
         UserRepository userRepository,
         ProductRepository productRepository,
         MealEntryRepository mealEntryRepository,
         MealEntryItemRepository mealEntryItemRepository,
-        MealMapper mealMapper) {
+        MealMapper mealMapper,
+        ProductMapper productMapper) {
 
         this.userRepository = userRepository;
         this.productRepository = productRepository;
         this.mealEntryRepository = mealEntryRepository;
         this.mealEntryItemRepository = mealEntryItemRepository;
         this.mealMapper = mealMapper;
+        this.productMapper = productMapper;
     }
 
     public MealEntryDTO addFoodToDiary(MealEntryItemCreateDTO dto, String username) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new NoSuchElementException("User not found"));
-        Product product = productRepository.findById(dto.productId()).orElseThrow(() -> new NoSuchElementException("Product not found"));
+
+        Product product;
+        
+        if (dto.product().externalId() != null) {
+            product = productRepository.findByExternalId(dto.product().externalId())
+                .orElseGet(() -> {
+                    Product newProduct = productMapper.toProduct(dto.product());
+
+                    return productRepository.save(newProduct);
+                });
+        
+        } else {
+            throw new NoSuchElementException("Product not found");
+        }
         
         MealEntry entry = mealEntryRepository.findByUserAndDateAndType(user, dto.date(), dto.mealType())
                 .orElseGet(() -> {

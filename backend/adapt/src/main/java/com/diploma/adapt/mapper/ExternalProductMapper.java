@@ -14,5 +14,6 @@ public interface ExternalProductMapper {
     @Mapping(source = "nutriments.fat", target = "fat")
     @Mapping(source = "nutriments.carbs", target = "carbs")
     @Mapping(target = "source", constant = "EXTERNAL")
+    @Mapping(source = "code", target = "externalId")
     ProductDTO toProductDTO(ApiProductResponseDTO apiProduct);
 }

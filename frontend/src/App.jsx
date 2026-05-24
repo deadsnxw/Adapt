@@ -4,6 +4,7 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import ProductSearchPage from "./pages/ProductSearchPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 export default function App() {
     return (
@@ -14,6 +15,7 @@ export default function App() {
                 <Route path="/login" element={<LoginPage />} />
                 {/* <Route path="/me" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} /> */}
                 <Route path="/products/search" element={<ProtectedRoute><ProductSearchPage /></ProtectedRoute>} />
+                <Route path="/products/:id" element={<ProtectedRoute><ProductDetailPage /></ProtectedRoute>} />
             </Routes>
         </BrowserRouter>
     );

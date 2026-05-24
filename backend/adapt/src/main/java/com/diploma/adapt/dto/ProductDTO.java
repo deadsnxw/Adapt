@@ -12,5 +12,6 @@ public record ProductDTO(
     Double fat,
     Double carbs,
     ProductSource source,
-    String createdBy
+    String createdBy,
+    String externalId
 ) {}

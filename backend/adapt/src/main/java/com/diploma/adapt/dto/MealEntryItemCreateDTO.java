@@ -3,14 +3,12 @@ package com.diploma.adapt.dto;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import com.diploma.adapt.model.MealType;
 
 public record MealEntryItemCreateDTO (
 
-    @NotNull
-    UUID productId,
+    ProductCreateDTO product,
 
     @NotNull
     @Min(1)

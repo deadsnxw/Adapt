@@ -6,17 +6,18 @@ import ProductSearch from "../components/product/ProductSearch";
 export default function ProductSearchPage() {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
-
-    const navigate = useNavigate();
+        
     const location = useLocation();
 
     const mealType = location.state?.mealType; 
 
-     const fetchProducts = async () => {
-            const data = await fetchApi(`/api/products/search?query=${query}`)
+    const fetchProducts = async () => {
+        const data = await fetchApi(`/api/products/search?query=${query}`)
     
-            setResults(data)
-        };
+        setResults(data)
+
+        console.log(data)
+    };
     
     const handleInputChange = (event) => {
         setQuery(event.target.value);
@@ -29,6 +30,7 @@ export default function ProductSearchPage() {
                 onQueryChange={handleInputChange}
                 results={results}
                 onSearch={fetchProducts}
+                mealType={mealType}
             />
         </div>
     )

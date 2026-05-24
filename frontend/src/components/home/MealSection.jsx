@@ -5,13 +5,20 @@ export default function MealSection({ mealName, productList, mealType }) {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
 
+    const totals = productList[0];
+
     return (
         <div className="meals">
-            <label className="mealName" onClick={() => setOpen(!open)}>{mealName}</label>
+            <label className="mealName" onClick={() => setOpen(!open)}>{mealName} 
+                | {totals?.calories}kcal |
+                Protein: {totals?.protein}g | 
+                Carbs: {totals?.carbs}g |
+                Fat: {totals?.fat}g
+            </label>
             {open &&
                 <ul className="mealSectionList">
                     <div className="listGroup">
-                        {productList.map((item) => (
+                        {productList.flatMap((entry) => entry.product.map((item) =>
                             <li key={item.id}>
                                 {item.productName} - 
                                 {item.amount}g - 

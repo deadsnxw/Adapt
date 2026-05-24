@@ -1,4 +1,8 @@
-export default function ProductSearch({query, onQueryChange, results, onSearch}) {
+import { useNavigate } from "react-router-dom";
+
+export default function ProductSearch({query, onQueryChange, results, onSearch, mealType }) {
+    const navigate = useNavigate();
+
     return (
         <div className="searchForm">
             <div className="formGroup">
@@ -14,7 +18,7 @@ export default function ProductSearch({query, onQueryChange, results, onSearch})
                 <ul className="productsList">
                     <div className="listGroup">
                         {results.map((item) => (
-                            <li key={item.id}>
+                            <li key={item.id} onClick={() => navigate(`/products/${item.externalId}`, { state: { mealType, product: item } })}>
                                 {item.productName} -  
                                 {item.calories} kcal - 
                                 {item.protein}g- 

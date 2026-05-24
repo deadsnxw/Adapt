@@ -16,8 +16,8 @@ public interface ProductMapper {
     ProductDTO toProductDTO(Product product);
     
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "source", ignore = true)
-    @Mapping(target = "externalId", ignore = true)
+    @Mapping(target = "source", source = "source")
+    @Mapping(target = "externalId", source = "externalId")
     @Mapping(target = "createdBy", ignore = true)
     Product toProduct(ProductCreateDTO dto);
     
