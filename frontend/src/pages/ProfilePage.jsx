@@ -1,17 +1,27 @@
 import { useState, useEffect } from "react";
 import { fetchApi, removeToken } from "../utils/api";
 import { useNavigate } from "react-router-dom";
+import styles from "../styles/ProfilePage.module.css"
+import { BounceLoader } from "react-spinners";
 
 export default function ProfilePage() {
     const [profile, setProfile] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState("");
 
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProfile = async () => {
-            const data = await fetchApi('/api/users/me')
+            try {
+                const data = await fetchApi('/api/users/me')
 
-            setProfile(data);
+                setProfile(data);
+            } catch (error) {
+                setError("Couldn't load profile");
+            } finally {
+                setIsLoading(false);
+            }
         };
 
         fetchProfile();
@@ -23,21 +33,62 @@ export default function ProfilePage() {
         navigate('/login')
     };
 
+    if (isLoading) {
+        return <div className={styles.loading}><BounceLoader color="var(--color-btn-bg)" size={60} speedMultiplier={1.2} /></div>;
+    }
+
+    if (!profile) {
+        return <div className={styles.error}>Couldn't load profile</div>;
+    }
+
     return (
-        <div className="profileContainer">
-            <h2>{profile?.username}</h2>
-            <span>Age: {profile?.age}</span>
-            <span>Sex: {profile?.gender}</span>
-            <span>Height: {profile?.height}</span>
-            <span>Weight: {profile?.weight}</span>
-            <span>Activity Level: {profile?.activityLevel}</span>
-            <span>Goal: {profile?.goal}</span>
-            <span>Target Calories: {profile?.targetCalories}</span>
-            <span>Target Protein: {profile?.targetProtein}</span>
-            <span>Target Carbs: {profile?.targetCarbs}</span>
-            <span>Target Fat: {profile?.targetFat}</span>
-            <button onClick={() => navigate('/me/settings')}>Settings</button>
-            <button onClick={handleLogout}>Logout</button>
+        <div className={styles.profileContainer}>
+            <div className={styles.usernameContainer}>
+                <h2>{profile.username}</h2>
+            </div>
+
+            <div className={styles.anthropometryCard}>
+                <div className={styles.statItem}>
+                    <span className={styles.statLabel}>Age</span>
+                    <span className={styles.statValue}>{profile.age}</span>
+                </div>
+
+                <div className={styles.statItem}>
+                    <span className={styles.statLabel}>Height</span>
+                    <span className={styles.statValue}>{profile.height} cm</span>
+                </div>
+
+                <div className={styles.statItem}>
+                     <span className={styles.statLabel}>Weight</span>
+                     <span className={styles.statValue}>{profile.weight} kg</span>
+                </div>
+            </div>
+            <div className={styles.goalContainer}>
+                <div className={styles.statItem}>
+                    <span className={styles.statLabel}>Target Calories</span>
+                    <span className={styles.statValue}>{profile.targetCalories} kcal</span>
+                </div>
+
+                <div className={styles.statItem}>
+                    <span className={styles.statLabel}>Target Protein</span>
+                    <span className={styles.statValue}>{profile.targetProtein} g</span>
+                </div>
+
+                <div className={styles.statItem}>
+                    <span className={styles.statLabel}>Target Carbs</span>
+                    <span className={styles.statValue}>{profile.targetCarbs} g</span>
+                </div>
+
+                <div className={styles.statItem}>
+                    <span className={styles.statLabel}>Target Fat</span>
+                    <span className={styles.statValue}>{profile.targetFat} g</span>
+                </div>
+            </div>
+
+            <div className={styles.buttonContainer}>
+                <button className={styles.button} onClick={() => navigate('/me/settings')}>Settings</button>
+                <button className={styles.button} onClick={handleLogout}>Logout</button>
+            </div>
         </div>
     )
 }
