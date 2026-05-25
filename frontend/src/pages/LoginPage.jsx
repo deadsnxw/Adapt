@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchApi, setToken } from "../utils/api.js";
 import LoginForm from "../components/login/LoginForm.jsx";
+import styles from '../styles/LoginPage.module.css'
 
 export default function LoginPage() {
     const [formData, setFormData] = useState({
@@ -48,16 +49,19 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="loginContainer">
-            <div className="login-content">
-                <h1>Login</h1>
-                {error && <p>{error}</p>}
+        <div className={styles.loginContainer}>
+            <div className={styles.loginContent}>
+                <h1 className={styles.title}>Login</h1>
+                {error && <p className={styles.error}>{error}</p>}
 
                 <LoginForm
                     formData={formData}
                     onInputChange={handleInputChange}
                     onLogin={handleLogin}
                 />
+                <p className={styles.registerLink}>
+                    Don't have an account? <span onClick={() => navigate('/register')}>Register</span>
+                </p>
             </div>
         </div>
     );
