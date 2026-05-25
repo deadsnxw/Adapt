@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { fetchApi, removeToken } from "../utils/api";
 import { useNavigate } from "react-router-dom";
+import { BounceLoader } from "react-spinners";
 import SettingsForm from "../components/settings/SettingsForm";
+import styles from "../styles/SettingsForm.module.css"
 
 export default function SettingsPage() {
     const [formData, setFormData] = useState({
@@ -13,14 +15,23 @@ export default function SettingsPage() {
         goal: "",
     });
     const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     
     const navigate = useNavigate();
     
     useEffect(() => {
         const loadInfo = async () => {
-            const data = await fetchApi('/api/users/me')
+            try {
+                setIsLoading(true);
 
-            setFormData(data);
+                const data = await fetchApi('/api/users/me')
+
+                setFormData(data);
+            } catch (error) {
+                setError("Couldn't load info")
+            } finally {
+                setIsLoading(false);
+            }
         }
 
         loadInfo();
@@ -71,11 +82,15 @@ export default function SettingsPage() {
         navigate('/register')
     }
 
+    if (isLoading) {
+        return <div className={styles.loading}><BounceLoader color="var(--color-btn-bg)" size={60} speedMultiplier={1.2} /></div>;
+    }
+
     return (
-        <div className="settingsContainer">
-            <div className="updateContent">
-                <h1>Settings</h1>
-                {error && <p>{error}</p>}
+        <div className={styles.settingsContainer}>
+            <div className={styles.updateContent}>
+                <h1 className={styles.title}>Settings</h1>
+                {error && <p className={styles.error}>{error}</p>}
 
                 <SettingsForm 
                     formData={formData}
