@@ -1,10 +1,13 @@
+import styles from "../../styles/StepOne.module.css"
+
 export default function StepOne({ formData, onInputChange, onNext }) {
     return (
         <form className="registerForm" onSubmit={onNext}>
-            <div className="formGroup">
-                <label htmlFor="username">Username</label>
+            <div className={styles.formGroup}>
+                <label className={styles.label} htmlFor="username">Username</label>
                 <input
                     id="username"
+                    className={styles.input}
                     name="username"
                     type="text"
                     placeholder="username"
@@ -13,9 +16,10 @@ export default function StepOne({ formData, onInputChange, onNext }) {
                     required
                 />
 
-                <label htmlFor="password">Password</label>
+                <label className={styles.label} htmlFor="password">Password</label>
                 <input
                     id="password"
+                    className={styles.input}
                     name="password"
                     type="password"
                     placeholder="password"
@@ -24,9 +28,10 @@ export default function StepOne({ formData, onInputChange, onNext }) {
                     required
                 />
 
-                <label htmlFor="passwordConfirm">Confirm Password</label>
+                <label className={styles.label} htmlFor="passwordConfirm">Confirm Password</label>
                 <input
                     id="passwordConfirm"
+                    className={styles.input}
                     name="passwordConfirm"
                     type="password"
                     placeholder="password"
@@ -35,7 +40,7 @@ export default function StepOne({ formData, onInputChange, onNext }) {
                     required
                 />
 
-                <button name="next" type="submit">Next</button>
+                <button className={styles.button} name="next" type="submit">Next</button>
             </div>
         </form>
     );

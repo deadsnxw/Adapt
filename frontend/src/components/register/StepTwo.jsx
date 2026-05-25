@@ -1,10 +1,13 @@
+import styles from "../../styles/StepTwo.module.css"
+
 export default function StepTwo({ formData, onInputChange, onBack, onRegister }) {
     return (
         <form className="registerForm" onSubmit={onRegister}>
-            <div className="formGroup">
-                <label htmlFor="age">Age</label>
+            <div className={styles.formGroup}>
+                <label className={styles.label} htmlFor="age">Age</label>
                 <input
                     id="age"
+                    className={styles.input}
                     name="age"
                     type="number"
                     placeholder="18"
@@ -14,9 +17,10 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                     required
                 />
 
-                <label htmlFor="height">Height</label>
+                <label className={styles.label} htmlFor="height">Height</label>
                 <input
                     id="height"
+                    className={styles.input}
                     name="height"
                     type="number"
                     placeholder="175"
@@ -26,9 +30,10 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                     required
                 />
 
-                <label htmlFor="weight">Weight</label>
+                <label className={styles.label} htmlFor="weight">Weight</label>
                 <input
                     id="weight"
+                    className={styles.input}
                     name="weight"
                     type="number"
                     placeholder="80"
@@ -38,7 +43,8 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                     required
                 />
 
-                <label>Gender</label>
+                <label className={styles.label}>Gender</label>
+                <div className={styles.radioGroup}>
                 <label htmlFor="genderMale">
                     <input
                         id="genderMale"
@@ -49,7 +55,7 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         onChange={onInputChange}
                         required
                     />
-                    Male
+                    <span>Male</span>
                 </label>
                 <label htmlFor="genderFemale">
                     <input
@@ -61,10 +67,12 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         onChange={onInputChange}
                         required
                     />
-                    Female
+                    <span>Female</span>
                 </label>
+                </div>
 
-                <label>Activity Level</label>
+                <label className={styles.label}>Activity Level</label>
+                <div className={styles.radioGroup}>
                 <label htmlFor="activitySedentary">
                     <input
                         id="activitySedentary"
@@ -75,7 +83,7 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         onChange={onInputChange}
                         required
                     />
-                    Sedentary
+                    <span>Sedentary</span>
                 </label>
                 <label htmlFor="activityLight">
                     <input
@@ -87,7 +95,7 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         onChange={onInputChange}
                         required
                     />
-                    Light
+                    <span>Light</span>
                 </label>
                 <label htmlFor="activityModerate">
                     <input
@@ -99,7 +107,7 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         onChange={onInputChange}
                         required
                     />
-                    Moderate
+                    <span>Moderate</span>
                 </label>
                 <label htmlFor="activityActive">
                     <input
@@ -111,7 +119,7 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         onChange={onInputChange}
                         required
                     />
-                    Active
+                    <span>Active</span>
                 </label>
                 <label htmlFor="activityVeryActive">
                     <input
@@ -123,10 +131,12 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         onChange={onInputChange}
                         required
                     />
-                    Very Active
+                    <span>Very Active</span>
                 </label>
+                </div>
 
-                <label>Goal</label>
+                <label className={styles.label}>Goal</label>
+                <div className={styles.radioGroup}>
                 <label htmlFor="goalLoss">
                     <input
                         id="goalLoss"
@@ -137,7 +147,7 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         onChange={onInputChange}
                         required
                     />
-                    Loss
+                    <span>Loss</span>
                 </label>
                 <label htmlFor="goalMaintain">
                     <input
@@ -149,7 +159,7 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         onChange={onInputChange}
                         required
                     />
-                    Maintain
+                    <span>Maintain</span>
                 </label>
                 <label htmlFor="goalGain">
                     <input
@@ -161,11 +171,12 @@ export default function StepTwo({ formData, onInputChange, onBack, onRegister })
                         onChange={onInputChange}
                         required
                     />
-                    Gain
+                    <span>Gain</span>
                 </label>
+                </div>
 
-                <button type="button" onClick={onBack}>Back</button>
-                <button name="register" type="submit">Register</button>
+                <button className={styles.button} type="button" onClick={onBack}>Back</button>
+                <button className={styles.button} name="register" type="submit">Register</button>
             </div>
         </form>
     );
