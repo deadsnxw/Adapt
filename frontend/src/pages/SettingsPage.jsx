@@ -59,6 +59,18 @@ export default function SettingsPage() {
         }
     }
 
+    const handleDelete = async (event) => {
+        event.preventDefault();
+        
+        await fetchApi("/api/users/me", {
+            method: "DELETE"
+        });
+
+        removeToken();
+
+        navigate('/register')
+    }
+
     return (
         <div className="settingsContainer">
             <div className="updateContent">
@@ -69,6 +81,7 @@ export default function SettingsPage() {
                     formData={formData}
                     onInputChange={handleInputChange}
                     onUpdate={handleUpdate}
+                    onDelete={handleDelete}
                 />
             </div>
         </div>

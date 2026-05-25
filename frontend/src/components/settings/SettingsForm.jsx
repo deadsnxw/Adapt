@@ -1,4 +1,4 @@
-export default function SettingsForm({ formData, onInputChange, onUpdate }) {
+export default function SettingsForm({ formData, onInputChange, onUpdate, onDelete }) {
     return (
         <form className="settingsForm" onSubmit={onUpdate}>
             <div className="formGroup">
@@ -165,6 +165,7 @@ export default function SettingsForm({ formData, onInputChange, onUpdate }) {
                 </label>
 
                 <button name="update" type="submit">Update</button>
+                <button name="delete" onClick={onDelete}>Delete Account</button>
             </div>
         </form>
     )
