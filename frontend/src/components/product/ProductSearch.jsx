@@ -15,6 +15,7 @@ export default function ProductSearch({query, onQueryChange, results, onSearch, 
                     onChange={onQueryChange}
                 />
                 <button className="searchButton" onClick={onSearch}>Search</button>
+                <button className="addCustom" onClick={() => navigate('/products/create', {state: { mealType }})}>Add Custom Product</button>
                 <ul className="productsList">
                     <div className="listGroup">
                         {results.map((item) => (

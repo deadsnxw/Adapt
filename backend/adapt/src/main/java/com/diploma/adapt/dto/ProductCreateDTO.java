@@ -1,10 +1,14 @@
 package com.diploma.adapt.dto;
 
+import java.util.UUID;
+
 import com.diploma.adapt.model.ProductSource;
 
 import jakarta.validation.constraints.*;
 
 public record ProductCreateDTO(
+
+    UUID id,
     
     @NotBlank
     @Size(max = 250)

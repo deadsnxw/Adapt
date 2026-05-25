@@ -62,7 +62,8 @@ public class MealService {
                 });
         
         } else {
-            throw new NoSuchElementException("Product not found");
+            product = productRepository.findById(dto.product().id())
+                .orElseThrow(() -> new NoSuchElementException("Product not found"));
         }
         
         MealEntry entry = mealEntryRepository.findByUserAndDateAndType(user, dto.date(), dto.mealType())

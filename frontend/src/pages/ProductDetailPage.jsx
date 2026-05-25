@@ -11,6 +11,8 @@ export default function ProductDetailPage() {
     const mealType = location.state?.mealType;
     const product = location.state?.product;
 
+    console.log(location.state);
+
     const [amount, setAmount] = useState(isEdit ? product.amount : 100);
     const [error, setError] = useState("");
 
