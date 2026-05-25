@@ -4,6 +4,7 @@ import { getDate } from "../utils/dateUtils";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import MealSection from "../components/home/MealSection";
+import styles from "../styles/HomePage.module.css"
 
 export default function HomePage() {
     const [meal, setMeal] = useState([]);
@@ -34,14 +35,14 @@ export default function HomePage() {
     const totalFat = meal.reduce((sum, entry) => sum + entry.fat, 0);
 
     return (
-        <div className="homeContainer">
-            <div className="calendar">
+        <div className={styles.homeContainer}>
+            <div className={styles.calendar}>
                 <DatePicker
                     selected={selectedDate}
                     onChange={(date) => setSelectedDate(date)}
                 />
             </div>
-            <div className="mealSection">
+            <div className={styles.mealSection}>
                 <MealSection
                     mealName="Breakfast"
                     mealType="BREAKFAST"
@@ -63,7 +64,7 @@ export default function HomePage() {
                     productList={meal.filter(item => item.mealType === "SNACK")} 
                 />
             </div>
-            <div className="progressBars">
+            <div className={styles.progressBars}>
                 <span>Calories: {totalCalories}/{profile?.targetCalories} |</span>
                 <span>Protein: {totalProtein}/{profile?.targetProtein} |</span>
                 <span>Carbs: {totalCarbs}/{profile?.targetCarbs} |</span>
