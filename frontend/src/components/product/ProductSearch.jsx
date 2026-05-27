@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { BounceLoader } from "react-spinners";
 import styles from "../../styles/ProductSearch.module.css"
+import { formatNumber } from "../../utils/numberFormat";
 
 export default function ProductSearch({query, onQueryChange, results, onSearch, mealType, isSearching }) {
     const navigate = useNavigate();
@@ -36,10 +37,10 @@ export default function ProductSearch({query, onQueryChange, results, onSearch, 
                                         <span className={styles.productName}>{item.productName}</span>
                                     </div>
                                     <div className={styles.productMacros}>
-                                        <span>{item.calories} kcal</span>
-                                        <span>P: {item.protein} g</span>
-                                        <span>C: {item.carbs} g</span>
-                                        <span>F: {item.fat} g</span>
+                                        <span>{formatNumber(item.calories)} kcal</span>
+                                        <span>P: {formatNumber(item.protein)} g</span>
+                                        <span>C: {formatNumber(item.carbs)} g</span>
+                                        <span>F: {formatNumber(item.fat)} g</span>
                                     </div>
                                 </li>
                             ))}

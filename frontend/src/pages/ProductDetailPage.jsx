@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom";
 import { getDate } from "../utils/dateUtils";
 import { fetchApi } from "../utils/api";
+import { formatNumber } from "../utils/numberFormat";
 import styles from "../styles/ProductDetailPage.module.css"
 
 export default function ProductDetailPage() {
@@ -17,10 +18,10 @@ export default function ProductDetailPage() {
     const [amount, setAmount] = useState(isEdit ? product.amount : 100);
     const [error, setError] = useState("");
 
-    const calories = (product.calories * amount / 100).toFixed(1);
-    const protein = (product.protein * amount / 100).toFixed(1);
-    const carbs = (product.carbs * amount / 100).toFixed(1);
-    const fat = (product.fat * amount / 100).toFixed(1);
+    const calories = product.calories * amount / 100;
+    const protein = product.protein * amount / 100;
+    const carbs = product.carbs * amount / 100;
+    const fat = product.fat * amount / 100;
 
     const addProduct = async (event) => {
         event.preventDefault();
@@ -106,19 +107,19 @@ export default function ProductDetailPage() {
                 <div className={styles.macrosCard}>
                     <div className={styles.statItem}>
                         <span className={styles.statLabel}>Calories: </span>
-                        <span className={styles.statValue}>{calories}</span>
+                        <span className={styles.statValue}>{formatNumber(calories)}</span>
                     </div>
                     <div className={styles.statItem}>
                         <span className={styles.statLabel}>Protein: </span>
-                        <span className={styles.statValue}>{protein}</span>
+                        <span className={styles.statValue}>{formatNumber(protein)}</span>
                     </div>
                     <div className={styles.statItem}>
                         <span className={styles.statLabel}>Carbs: </span>
-                        <span className={styles.statValue}>{carbs}</span>
+                        <span className={styles.statValue}>{formatNumber(carbs)}</span>
                     </div>
                     <div className={styles.statItem}>
                         <span className={styles.statLabel}>Fat: </span>
-                        <span className={styles.statValue}>{fat}</span>
+                        <span className={styles.statValue}>{formatNumber(fat)}</span>
                     </div>
                 </div>
             </div>

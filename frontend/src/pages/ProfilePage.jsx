@@ -3,6 +3,7 @@ import { fetchApi, removeToken } from "../utils/api";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/ProfilePage.module.css"
 import { BounceLoader } from "react-spinners";
+import { formatNumber } from "../utils/numberFormat";
 
 export default function ProfilePage() {
     const [profile, setProfile] = useState(null);
@@ -66,22 +67,22 @@ export default function ProfilePage() {
             <div className={styles.goalContainer}>
                 <div className={styles.statItem}>
                     <span className={styles.statLabel}>Target Calories</span>
-                    <span className={styles.statValue}>{profile.targetCalories} kcal</span>
+                    <span className={styles.statValue}>{formatNumber(profile.targetCalories)} kcal</span>
                 </div>
 
                 <div className={styles.statItem}>
                     <span className={styles.statLabel}>Target Protein</span>
-                    <span className={styles.statValue}>{profile.targetProtein} g</span>
+                    <span className={styles.statValue}>{formatNumber(profile.targetProtein)} g</span>
                 </div>
 
                 <div className={styles.statItem}>
                     <span className={styles.statLabel}>Target Carbs</span>
-                    <span className={styles.statValue}>{profile.targetCarbs} g</span>
+                    <span className={styles.statValue}>{formatNumber(profile.targetCarbs)} g</span>
                 </div>
 
                 <div className={styles.statItem}>
                     <span className={styles.statLabel}>Target Fat</span>
-                    <span className={styles.statValue}>{profile.targetFat} g</span>
+                    <span className={styles.statValue}>{formatNumber(profile.targetFat)} g</span>
                 </div>
             </div>
 

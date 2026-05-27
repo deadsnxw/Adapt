@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"; 
 import { fetchApi } from "../utils/api";
 import { getDate } from "../utils/dateUtils";
+import { formatNumber } from "../utils/numberFormat";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import MealSection from "../components/home/MealSection";
@@ -93,7 +94,7 @@ export default function HomePage() {
                 <div className={styles.calorieProgress}>
                     <div className={styles.progressHeader}>
                         <span>Calories</span>
-                        <span>{totalCalories}/{dailyCalories || "-"}</span>
+                        <span>{formatNumber(totalCalories)}/{dailyCalories ? formatNumber(dailyCalories) : "-"}</span>
                     </div>
                     <progress
                         className={styles.progressElement}
@@ -117,12 +118,12 @@ export default function HomePage() {
                                     style={{ backgroundColor: macro.color }}
                                 />
                                 <div className={styles.legendText}>
-                                    <span>{macro.name}: {macro.value}/{macro.target || "-"} g</span>
+                                    <span>{macro.name}: {formatNumber(macro.value)}/{macro.target ? formatNumber(macro.target) : "-"} g</span>
                                     <span className={macro.value > macro.target && macro.target > 0 ? styles.macroOver : styles.macroLeft}>
                                         {macro.target > 0
                                             ? macro.value > macro.target
-                                                ? `+${macro.value - macro.target} g over`
-                                                : `${macro.target - macro.value} g left`
+                                                ? `+${formatNumber(macro.value - macro.target)} g over`
+                                                : `${formatNumber(macro.target - macro.value)} g left`
                                             : "No target"}
                                     </span>
                                 </div>

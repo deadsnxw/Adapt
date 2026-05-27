@@ -21,7 +21,8 @@ export default function ProductCreate({ formData, onInputChange, onCreate }) {
                     className={styles.input}
                     name="calories"
                     type="number"
-                    min="1"
+                    min="0"
+                    step="0.1"
                     value={formData.calories}
                     onChange={onInputChange}
                     required
@@ -32,7 +33,8 @@ export default function ProductCreate({ formData, onInputChange, onCreate }) {
                     className={styles.input}
                     name="protein"
                     type="number"
-                    min="1"
+                    min="0"
+                    step="0.1"
                     value={formData.protein}
                     onChange={onInputChange}
                     required
@@ -43,7 +45,8 @@ export default function ProductCreate({ formData, onInputChange, onCreate }) {
                     className={styles.input}
                     name="carbs"
                     type="number"
-                    min="1"
+                    min="0"
+                    step="0.1"
                     value={formData.carbs}
                     onChange={onInputChange}
                     required
@@ -54,7 +57,8 @@ export default function ProductCreate({ formData, onInputChange, onCreate }) {
                     className={styles.input}
                     name="fat"
                     type="number"
-                    min="1"
+                    min="0"
+                    step="0.1"
                     value={formData.fat}
                     onChange={onInputChange}
                     required
