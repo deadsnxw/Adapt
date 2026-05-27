@@ -42,7 +42,7 @@ The product is designed to be practical for everyday use and extensible for futu
 - Backend: Java 17, Spring Boot, Spring Security, Spring Data JPA, Flyway
 - Frontend: React 19, Vite
 - Database: PostgreSQL 16
-- Infrastructure: Docker Compose for local database environment
+- Infrastructure: Docker Compose for full local stack (frontend + backend + database)
 
 ## Architecture (High-Level)
 
@@ -79,7 +79,7 @@ For portfolio-grade system purposes:
 - Node.js 18+ and npm
 - Docker and Docker Compose
 
-### 1) Start PostgreSQL
+### 1) Configure environment
 
 Create `.env` in project root:
 
@@ -87,48 +87,19 @@ Create `.env` in project root:
 POSTGRES_DB=adapt
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
+JWT_SECRET=change_me_to_at_least_32_characters_secret_key
+JWT_EXPIRATION=86400000
+OPEN_FOOD_FACTS_URL=https://world.openfoodfacts.org
 ```
 
-Run:
+### 2) Start everything with Docker Compose
 
 ```bash
-docker compose up -d
+docker compose up --build -d
 ```
 
-### 2) Configure backend
-
-```bash
-cp backend/adapt/src/main/resources/application.properties.example \
-   backend/adapt/src/main/resources/application.properties
-```
-
-Update required values:
-
-- `spring.datasource.url`
-- `spring.datasource.username`
-- `spring.datasource.password`
-- `jwt.secret`
-- `jwt.expiration`
-- `OPEN_FOOD_FACTS_URL`
-
-### 3) Run backend
-
-```bash
-cd backend/adapt
-./gradlew bootRun
-```
-
+Frontend URL: `http://localhost:5173`  
 Backend URL: `http://localhost:8080`
-
-### 4) Run frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Frontend URL: `http://localhost:5173`
 
 ## API Snapshot
 
