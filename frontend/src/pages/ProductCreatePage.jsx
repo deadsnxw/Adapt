@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom";
 import { fetchApi } from "../utils/api";
 import ProductCreate from "../components/product/ProductCreate";
+import styles from "../styles/ProductCreatePage.module.css"
 
 export default function ProductCreatePage() {
     const [formData, setFormData] = useState({
@@ -56,10 +57,10 @@ export default function ProductCreatePage() {
     }
 
     return (
-        <div className="productCreateContainer">
-            <div className="create-content">
-                <h1>Create product</h1>
-                {error && <p>{error}</p>}
+        <div className={styles.productCreateContainer}>
+            <div className={styles.createContent}>
+                <h1 className={styles.pageName}>Create a product</h1>
+                {error && <p className={styles.error}>{error}</p>}
 
                 <ProductCreate
                     formData={formData}
