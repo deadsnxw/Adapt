@@ -1,5 +1,6 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Navbar from "./Navbar";
 
 export default function ProtectedRoute({ children }) {
     const token = localStorage.getItem("token");
@@ -11,5 +12,10 @@ export default function ProtectedRoute({ children }) {
         return () => window.removeEventListener('unauthorized', handler);
     }, [])
 
-    return token ? <>{children}</> : <Navigate to="/login" />; 
+    return token ? (
+        <>
+            <Navbar/>
+            {children}
+        </>
+    ) : <Navigate to="/login" />; 
 }

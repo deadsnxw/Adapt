@@ -1,0 +1,17 @@
+.navbarContainer {
+    top: 0;
+    width: 100%;
+    position: fixed;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: var(--color-surface);
+    padding: 0 2rem;
+    z-index: 100;
+}
+
+.navbarContainer svg {
+    cursor: pointer;
+    color: var(--color-text);
+}
