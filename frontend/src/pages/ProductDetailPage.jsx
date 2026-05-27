@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom";
 import { getDate } from "../utils/dateUtils";
 import { fetchApi } from "../utils/api";
+import styles from "../styles/ProductDetailPage.module.css"
 
 export default function ProductDetailPage() {
     const navigate = useNavigate();
@@ -80,30 +81,47 @@ export default function ProductDetailPage() {
     }
 
     return (
-        <div className="detailContainer">
-            <label htmlFor="productName">{product.productName}</label>
-            <input
-                    id="amount"
-                    name="amount"
-                    type="number"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    required
-                />
-            
-            {isEdit ? (
-                <>
-                    <button className="update" onClick={updateProduct}>Update</button>
-                    <button className="delete" onClick={deleteProduct}>Delete</button>
-                </>
-            ) : ( 
-                <button className="add" onClick={addProduct}>Add</button>
-            )}
-
-            <span htmlFor="CPCF">Calories: {calories}</span>
-            <span htmlFor="CPCF">Protein: {protein}</span>
-            <span htmlFor="CPCF">Carbs: {carbs}</span>
-            <span htmlFor="CPCF">Fat: {fat}</span>
+        <div className={styles.detailContainer}>
+                <div className={styles.detailContent}>
+                    <h2 className={styles.productName} htmlFor="productName">{product.productName}</h2>
+                    <input
+                            id="amount"
+                            className={styles.input}
+                            name="amount"
+                            type="number"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                            required
+                        />
+                <div className={styles.buttonContainer}>
+                    {isEdit ? (
+                        <>
+                            <button className={styles.button} onClick={updateProduct}>Update</button>
+                            <button className={styles.delete} onClick={deleteProduct}>Delete</button>
+                        </>
+                    ) : ( 
+                        <button className={styles.button} onClick={addProduct}>Add</button>
+                    )}
+                </div>
+                <div className={styles.macrosCard}>
+                    <div className={styles.statItem}>
+                        <span className={styles.statLabel}>Calories: </span>
+                        <span className={styles.statValue}>{calories}</span>
+                    </div>
+                    <div className={styles.statItem}>
+                        <span className={styles.statLabel}>Protein: </span>
+                        <span className={styles.statValue}>{protein}</span>
+                    </div>
+                    <div className={styles.statItem}>
+                        <span className={styles.statLabel}>Carbs: </span>
+                        <span className={styles.statValue}>{carbs}</span>
+                    </div>
+                    <div className={styles.statItem}>
+                        <span className={styles.statLabel}>Fat: </span>
+                        <span className={styles.statValue}>{fat}</span>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

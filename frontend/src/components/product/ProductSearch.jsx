@@ -37,9 +37,9 @@ export default function ProductSearch({query, onQueryChange, results, onSearch, 
                                     </div>
                                     <div className={styles.productMacros}>
                                         <span>{item.calories} kcal</span>
-                                        <span>{item.protein} g</span>
-                                        <span>{item.carbs} g</span>
-                                        <span>{item.fat} g</span>
+                                        <span>P: {item.protein} g</span>
+                                        <span>C: {item.carbs} g</span>
+                                        <span>F: {item.fat} g</span>
                                     </div>
                                 </li>
                             ))}
