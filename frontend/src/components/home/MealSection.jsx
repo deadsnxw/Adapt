@@ -14,7 +14,7 @@ export default function MealSection({ mealName, productList, mealType }) {
                 <div className={styles.mealName} onClick={() => setOpen(!open)}>
                     <span className={styles.title}>{mealName}</span>
                     <span className={styles.summary}>
-                        {totals?.calories.toFixed(0)} kcal • P:{totals?.protein.toFixed(0)}g C:{totals?.carbs.toFixed(0)}g F:{totals?.fat.toFixed(0)}g
+                        {(totals?.calories || 0).toFixed(0)} kcal • P:{(totals?.protein || 0).toFixed(0)}g C:{(totals?.carbs || 0).toFixed(0)}g F:{(totals?.fat || 0).toFixed(0)}g
                     </span>
                 </div>
                 <button className={styles.add} onClick={() => navigate('/products/search', { state: { mealType: `${mealType}`}})}>+</button>
