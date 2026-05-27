@@ -33,6 +33,31 @@ export default function HomePage() {
     const totalProtein = meal.reduce((sum, entry) => sum + entry.protein, 0);
     const totalCarbs = meal.reduce((sum, entry) => sum + entry.carbs, 0);
     const totalFat = meal.reduce((sum, entry) => sum + entry.fat, 0);
+    const dailyCalories = profile?.targetCalories ?? 0;
+
+    const calorieProgress = dailyCalories > 0
+        ? Math.min((totalCalories / dailyCalories) * 100, 100)
+        : 0;
+
+    const macroDistribution = [
+        { name: "Protein", value: totalProtein, target: profile?.targetProtein ?? 0, color: "#16a34a" },
+        { name: "Carbs", value: totalCarbs, target: profile?.targetCarbs ?? 0, color: "#2563eb" },
+        { name: "Fat", value: totalFat, target: profile?.targetFat ?? 0, color: "#f59e0b" },
+    ];
+
+    const totalMacros = totalProtein + totalCarbs + totalFat;
+    const hasMacros = totalMacros > 0;
+    const proteinAngle = hasMacros ? (totalProtein / totalMacros) * 360 : 0;
+    const carbsAngle = hasMacros ? (totalCarbs / totalMacros) * 360 : 0;
+    const pieChartStyle = hasMacros
+        ? {
+            backgroundImage: `conic-gradient(
+                #16a34a 0deg ${proteinAngle}deg,
+                #2563eb ${proteinAngle}deg ${proteinAngle + carbsAngle}deg,
+                #f59e0b ${proteinAngle + carbsAngle}deg 360deg
+            )`,
+        }
+        : undefined;
 
     return (
         <div className={styles.homeContainer}>
@@ -65,10 +90,46 @@ export default function HomePage() {
                 />
             </div>
             <div className={styles.progressBars}>
-                <span>Calories: {totalCalories}/{profile?.targetCalories} |</span>
-                <span>Protein: {totalProtein}/{profile?.targetProtein} |</span>
-                <span>Carbs: {totalCarbs}/{profile?.targetCarbs} |</span>
-                <span>Fat: {totalFat}/{profile?.targetFat}</span>
+                <div className={styles.calorieProgress}>
+                    <div className={styles.progressHeader}>
+                        <span>Calories</span>
+                        <span>{totalCalories}/{dailyCalories || "-"}</span>
+                    </div>
+                    <progress
+                        className={styles.progressElement}
+                        max={100}
+                        value={calorieProgress}
+                    />
+                </div>
+                <div className={styles.macroChart}>
+                    <div className={styles.chartWrapper}>
+                        {hasMacros ? (
+                            <div className={styles.pieChart} style={pieChartStyle} />
+                        ) : (
+                            <div className={styles.emptyChart}>No macro data</div>
+                        )}
+                    </div>
+                    <div className={styles.macroLegend}>
+                        {macroDistribution.map((macro) => (
+                            <div key={macro.name} className={styles.legendItem}>
+                                <span
+                                    className={styles.legendDot}
+                                    style={{ backgroundColor: macro.color }}
+                                />
+                                <div className={styles.legendText}>
+                                    <span>{macro.name}: {macro.value}/{macro.target || "-"} g</span>
+                                    <span className={macro.value > macro.target && macro.target > 0 ? styles.macroOver : styles.macroLeft}>
+                                        {macro.target > 0
+                                            ? macro.value > macro.target
+                                                ? `+${macro.value - macro.target} g over`
+                                                : `${macro.target - macro.value} g left`
+                                            : "No target"}
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     )
